@@ -9,9 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class ContentController {
     private ArrayList<Movie> movies;
@@ -24,6 +22,8 @@ public class ContentController {
     }
 
     public void initializeContent() throws IOException {
+
+
         Scanner mReader = new Scanner(new File("out/movies/movies_text.txt"));
         mReader.useDelimiter(";");
 
@@ -72,9 +72,10 @@ public class ContentController {
     }
 
     public void searchByRating(double sort){
+        Collections.sort(movies);
         for(Movie m: movies){
-            if(m.getRating() <= sort){
-                m.display();
+            if(m.getRating() > sort) {
+                System.out.println(m.display());
             }
         }
     }

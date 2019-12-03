@@ -3,6 +3,7 @@ package model;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.nio.Buffer;
+import java.util.Comparator;
 
 public class Content {
     protected String title;

@@ -2,6 +2,7 @@ import controller.ContentController;
 
 import javax.swing.*;
 import java.io.*;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -11,9 +12,7 @@ public class Demo {
         ContentController test = new ContentController();
 
         test.initializeContent();
-/*        Collections.sort(al);*/
         test.searchByRating(8.0);
-        test.display();
 
 
 
