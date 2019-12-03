@@ -1,5 +1,6 @@
 package controller;
 
+import model.Content;
 import model.Movie;
 import model.Show;
 import model.Show;
@@ -13,34 +14,32 @@ import java.util.*;
 
 public class ContentController {
     private ArrayList<Movie> movies;
-    //serie
     private ArrayList<Show> shows;
+    private List<Content> content;
 
-    public ContentController(){
-        movies = new ArrayList<>();
-        shows = new ArrayList<>();
+    public ContentController() {
+        content = new ArrayList<>();
     }
 
     public void initializeContent() throws IOException {
 
-
+        //movie scanner
         Scanner mReader = new Scanner(new File("out/movies/movies_text.txt"));
         mReader.useDelimiter(";");
 
         while (mReader.hasNext()) {
-            String        title  = mReader.next().trim();
             int           year   = Integer.parseInt(mReader.next().trim());
+            String        title  = mReader.next().trim();
             String        genre  = mReader.next().trim();
             double        rating = Double.parseDouble(mReader.next().trim().replaceAll(",", "."));
             BufferedImage cover  = ImageIO.read(new File("out/movies/" + title + ".jpg"));
 
-            movies.add(new Movie(title, genre, rating, cover, year));
+            content.add(new Movie(title, genre, rating, cover, year));
             mReader.nextLine();
         }
         mReader.close();
-    }
 
-/*    public void initializeVideo() throws IOException {
+        //shows scanner
         Scanner sReader = new Scanner(new File("out/shows/shows_text.txt"));
         sReader.useDelimiter(";");
 
@@ -52,31 +51,48 @@ public class ContentController {
             String        seasons = sReader.next().trim();
             BufferedImage cover   = ImageIO.read(new File("out/shows/Angel.jpg"));
 
-            shows.add(new Show(title, genre, rating, cover, runtime, seasons));
+            content.add(new Show(title, genre, rating, cover, runtime, seasons));
             sReader.nextLine();
         }
         sReader.close();
-    }*/
+    }
 
     public void display() {
         int i = 0;
-        for (Movie m : movies) {
-            System.out.println("film " + i + " " + m.display());
-            i++;
-        }
-        i = 0;
-        for (Show s: shows){
-            System.out.println("Serie " + i + " " + s.display());
+        for (Content c : content) {
+            if (c instanceof Movie) {
+                System.out.println("film " + i + " " + c.display());
+            } else {
+                System.out.println("Serie " + i + " " + c.display());
+            }
             i++;
         }
     }
 
-    public void searchByRating(double sort){
-        Collections.sort(movies);
-        for(Movie m: movies){
-            if(m.getRating() > sort) {
-                System.out.println(m.display());
+    public void customSort(double sort) {
+        Collections.sort(content);
+        for (Content c : content) {
+            if (c.getRating() >= sort) {
+                if (c instanceof Movie) {
+                    System.out.println("film " + c.display());
+                } else {
+                    System.out.println("Serie " + c.display());
+                }
+            }
+
+        }
+    }
+
+    public void search(String sTerm) {
+        for (Content c : content) {
+            if (c.getTitle().toLowerCase().contains(sTerm.toLowerCase())) {
+                if (c instanceof Movie) {
+                    System.out.println("film " + c.display());
+                } else {
+                    System.out.println("Serie " + c.display());
+                }
             }
         }
+
     }
 }

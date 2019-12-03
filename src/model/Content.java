@@ -5,13 +5,13 @@ import java.awt.image.BufferedImage;
 import java.nio.Buffer;
 import java.util.Comparator;
 
-public class Content {
+public class Content implements Comparable<Content> {
     protected String title;
     protected String genre;
     protected double rating;
     protected BufferedImage cover;
 
-    public Content(String title, String genre, double rating, BufferedImage cover){
+    public Content (String title, String genre, double rating, BufferedImage cover)  {
         this.title = title;
         this.genre = genre;
         this.rating = rating;
@@ -21,28 +21,42 @@ public class Content {
     public void setGenre(String genre) {
         this.genre = genre;
     }
+
     public void setRating(double rating) {
         this.rating = rating;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
-    public void setCover(BufferedImage cover) { this.cover = cover; }
+
+    public void setCover(BufferedImage cover) {
+        this.cover = cover;
+    }
 
     public String getTitle() {
         return title;
     }
+
     public double getRating() {
         return rating;
     }
+
     public String getGenre() {
         return genre;
     }
+
     public BufferedImage getCover() {
         return cover;
     }
 
-    public String display(){
+    public String display() {
         return title + " " + rating;
     }
+
+    public int compareTo(Content c) {
+        return Double.compare(c.getRating(), this.rating);
+    }
+
+
 }

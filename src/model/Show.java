@@ -3,7 +3,7 @@ package model;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Show extends Content {
+public class Show extends Content{
     protected String runtime;
     protected String seasons;
 
@@ -12,6 +12,5 @@ public class Show extends Content {
         this.runtime = runtime;
         this.seasons = seasons;
     }
-
 
 }
