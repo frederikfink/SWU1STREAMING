@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class ContentController {
@@ -23,7 +24,7 @@ public class ContentController {
     }
 
     public void initializeContent() throws IOException {
-        Scanner mReader = new Scanner(new File("C:/Users/O_o/Desktop/test.txt"));
+        Scanner mReader = new Scanner(new File("C:/Users/O_o/Desktop/movies_text.txt"));
         mReader.useDelimiter(";");
 
         while (mReader.hasNext()) {
@@ -31,7 +32,7 @@ public class ContentController {
             int           year   = Integer.parseInt(mReader.next().trim());
             String        genre  = mReader.next().trim();
             double        rating = Double.parseDouble(mReader.next().trim().replaceAll(",", "."));
-            BufferedImage cover  = ImageIO.read(new File("C:/Users/O_o/Desktop/Billeder/" + title + ".jpg"));
+            BufferedImage cover  = ImageIO.read(new File("out/movies/" + title + ".jpg"));
 
             movies.add(new Movie(title, genre, rating, cover, year));
             mReader.nextLine();
@@ -39,8 +40,8 @@ public class ContentController {
         mReader.close();
     }
 
-    public void initializeVideo() throws IOException {
-        Scanner sReader = new Scanner(new File("C:/Users/O_o/Desktop/testserie.txt"));
+/*    public void initializeVideo() throws IOException {
+        Scanner sReader = new Scanner(new File("C:/Users/O_o/Desktop/shows_text.txt"));
         sReader.useDelimiter(";");
 
         while (sReader.hasNext()) {
@@ -49,24 +50,32 @@ public class ContentController {
             String        genre   = sReader.next().trim();
             double        rating  = Double.parseDouble(sReader.next().trim().replaceAll(",", "."));
             String        seasons = sReader.next().trim();
-            BufferedImage cover   = ImageIO.read(new File("C:/Users/O_o/Desktop/Billeder2/" + title + ".jpg"));
+            BufferedImage cover   = ImageIO.read(new File("out/shows/Angel.jpg"));
 
             shows.add(new Show(title, genre, rating, cover, runtime, seasons));
             sReader.nextLine();
         }
         sReader.close();
-    }
+    }*/
 
-    public void show() {
+    public void display() {
         int i = 0;
         for (Movie m : movies) {
-            System.out.println("film " + i + " " + m.show());
+            System.out.println("film " + i + " " + m.display());
             i++;
         }
         i = 0;
         for (Show s: shows){
-            System.out.println("Serie " + i + " " + s.show());
+            System.out.println("Serie " + i + " " + s.display());
             i++;
+        }
+    }
+
+    public void searchByRating(double sort){
+        for(Movie m: movies){
+            if(m.getRating() <= sort){
+                m.display();
+            }
         }
     }
 }

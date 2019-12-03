@@ -41,7 +41,7 @@ public class Content {
         return cover;
     }
 
-    public String show(){
-        return title  + " " + genre + " " + rating;
+    public String display(){
+        return title + " " + rating;
     }
 }

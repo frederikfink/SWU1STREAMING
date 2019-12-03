@@ -18,7 +18,7 @@ public class Controller<movies> {
     public void show() {
         int i = 0;
         for (Movie m : movies) {
-            System.out.println("film " + i + " " + m.show());
+            System.out.println("film " + i + " " + m.display());
             i++;
         }
     }
@@ -39,7 +39,7 @@ public class Controller<movies> {
         sortMoviesByRating();
         for(Movie m: movies){
             if(m.getRating() >= rating){
-                System.out.println(m.show());
+                System.out.println(m.display());
             }
         }
     }
