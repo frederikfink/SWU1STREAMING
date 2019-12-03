@@ -24,7 +24,7 @@ public class ContentController {
     }
 
     public void initializeContent() throws IOException {
-        Scanner mReader = new Scanner(new File("C:/Users/O_o/Desktop/movies_text.txt"));
+        Scanner mReader = new Scanner(new File("out/movies/movies_text.txt"));
         mReader.useDelimiter(";");
 
         while (mReader.hasNext()) {
@@ -41,7 +41,7 @@ public class ContentController {
     }
 
 /*    public void initializeVideo() throws IOException {
-        Scanner sReader = new Scanner(new File("C:/Users/O_o/Desktop/shows_text.txt"));
+        Scanner sReader = new Scanner(new File("out/shows/shows_text.txt"));
         sReader.useDelimiter(";");
 
         while (sReader.hasNext()) {

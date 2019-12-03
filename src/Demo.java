@@ -11,6 +11,7 @@ public class Demo {
         ContentController test = new ContentController();
 
         test.initializeContent();
+/*        Collections.sort(al);*/
         test.searchByRating(8.0);
         test.display();
 
