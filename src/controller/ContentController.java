@@ -63,6 +63,8 @@ public class ContentController {
             sReader.nextLine();
         }
         sReader.close();
+        //shuffles the arraylist so that it doesnt display movies and then series.
+        Collections.shuffle(content);
     }
 
     public ArrayList<Content> getContent() {
@@ -81,18 +83,19 @@ public class ContentController {
         }
     }
 
-    public void customSort(double sort) {
-        Collections.sort(content);
+    public ArrayList searchByRating(double sort) {
+        ArrayList<Content> sortArray = new ArrayList<>();
         for (Content c : content) {
             if (c.getRating() >= sort) {
+                sortArray.add(c);
                 if (c instanceof Movie) {
                     System.out.println("film " + c.display());
                 } else {
                     System.out.println("Serie " + c.display());
                 }
             }
-
         }
+        return sortArray;
     }
 
     public void search(String sTerm) {
@@ -104,6 +107,7 @@ public class ContentController {
                     System.out.println("Serie " + c.display());
                 }
             }
+
         }
 
     }
