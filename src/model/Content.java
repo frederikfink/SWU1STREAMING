@@ -1,5 +1,7 @@
 package model;
 
+import javafx.scene.image.Image;
+
 import java.awt.*;
 import javafx.scene.image.Image;
 import java.lang.reflect.Array;
@@ -11,6 +13,7 @@ public class Content implements Comparable<Content> {
     protected String[] genre;
     protected double rating;
     protected Image cover;
+
 
     public Content (String title, String[] genre, double rating, Image cover)  {
         this.title = title;
@@ -55,5 +58,11 @@ public class Content implements Comparable<Content> {
         return Double.compare(c.getRating(), this.rating);
     }
 
+    //TODO sort by year + sort by title
+
+/*    static final Comparator<Content> BY_GENRE =
+            new Comparator<Genre>() {
+                //
+            };*/
 
 }

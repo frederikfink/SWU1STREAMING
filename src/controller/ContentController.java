@@ -1,5 +1,5 @@
 package controller;
-
+import javafx.scene.image.Image;
 import model.Content;
 import model.Movie;
 import model.Show;
@@ -29,7 +29,7 @@ public class ContentController {
     public void initializeContent() throws IOException {
 
         //movie scanner
-        Scanner mReader = new Scanner(new File("out/movies/movies_text.txt"));
+        Scanner mReader = new Scanner(new File("out/movies/#movies.txt"));
         mReader.useDelimiter(";");
 
         while (mReader.hasNext()) {
@@ -38,7 +38,8 @@ public class ContentController {
             String        genre  = mReader.next().trim();
             String[] arrOfGenres = genre.split(Pattern.quote(",").trim());
             double        rating = Double.parseDouble(mReader.next().trim().replaceAll(",", "."));
-            Image          cover   = new Image(new FileInputStream("out/movies/" + title + ".jpg"));
+            Image cover   = new Image(new FileInputStream("out/movies/" + title + ".jpg"));
+
 
 
             content.add(new Movie(title, arrOfGenres, rating, cover, year));
@@ -47,7 +48,7 @@ public class ContentController {
         mReader.close();
 
         //shows scanner
-        Scanner sReader = new Scanner(new File("out/shows/shows_text.txt"));
+        Scanner sReader = new Scanner(new File("out/shows/#shows.txt"));
         sReader.useDelimiter(";");
 
         while (sReader.hasNext()) {
@@ -58,6 +59,7 @@ public class ContentController {
             double        rating  = Double.parseDouble(sReader.next().trim().replaceAll(",", "."));
             String        seasons = sReader.next().trim();
             Image          cover   = new Image(new FileInputStream("out/shows/" + title + ".jpg"));
+
 
             content.add(new Show(title, arrOfGenres, rating, cover, runtime, seasons));
             sReader.nextLine();
@@ -86,6 +88,7 @@ public class ContentController {
     public ArrayList searchByRating(double sort) {
         ArrayList<Content> sortArray = new ArrayList<>();
         for (Content c : content) {
+
             if (c.getRating() >= sort) {
                 sortArray.add(c);
                 if (c instanceof Movie) {
@@ -100,6 +103,7 @@ public class ContentController {
 
     public void search(String sTerm) {
         for (Content c : content) {
+
             if (c.getTitle().toLowerCase().contains(sTerm.toLowerCase())) {
                 if (c instanceof Movie) {
                     System.out.println("film " + c.display());
@@ -110,5 +114,9 @@ public class ContentController {
 
         }
 
+    }
+
+    public ArrayList<Content> getContent() {
+        return (ArrayList<Content>) content;
     }
 }
