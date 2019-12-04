@@ -58,5 +58,11 @@ public class Content implements Comparable<Content> {
         return Double.compare(c.getRating(), this.rating);
     }
 
+    //TODO sort by year + sort by title
+
+/*    static final Comparator<Content> BY_GENRE =
+            new Comparator<Genre>() {
+                //
+            };*/
 
 }

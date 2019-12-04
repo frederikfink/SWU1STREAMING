@@ -24,12 +24,12 @@ public class ContentController {
     public void initializeContent() throws IOException {
 
         //movie scanner
-        Scanner mReader = new Scanner(new File("out/movies/movies_text.txt"));
+        Scanner mReader = new Scanner(new File("out/movies/#movies.txt"));
         mReader.useDelimiter(";");
 
         while (mReader.hasNext()) {
-            int           year   = Integer.parseInt(mReader.next().trim());
             String        title  = mReader.next().trim();
+            int           year   = Integer.parseInt(mReader.next().trim());
             String        genre  = mReader.next().trim();
             double        rating = Double.parseDouble(mReader.next().trim().replaceAll(",", "."));
             BufferedImage cover  = ImageIO.read(new File("out/movies/" + title + ".jpg"));
@@ -40,7 +40,7 @@ public class ContentController {
         mReader.close();
 
         //shows scanner
-        Scanner sReader = new Scanner(new File("out/shows/shows_text.txt"));
+        Scanner sReader = new Scanner(new File("out/shows/#shows.txt"));
         sReader.useDelimiter(";");
 
         while (sReader.hasNext()) {
@@ -72,6 +72,7 @@ public class ContentController {
     public void customSort(double sort) {
         Collections.sort(content);
         for (Content c : content) {
+
             if (c.getRating() >= sort) {
                 if (c instanceof Movie) {
                     System.out.println("film " + c.display());
@@ -85,6 +86,7 @@ public class ContentController {
 
     public void search(String sTerm) {
         for (Content c : content) {
+
             if (c.getTitle().toLowerCase().contains(sTerm.toLowerCase())) {
                 if (c instanceof Movie) {
                     System.out.println("film " + c.display());
