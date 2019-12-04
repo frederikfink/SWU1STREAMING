@@ -1,21 +1,23 @@
 package model;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.nio.Buffer;
+import javafx.scene.image.Image;
 
-public class Movie extends Content implements Comparable< Movie >{
+import java.awt.image.BufferedImage;
+import java.util.Comparator;
+
+public class Movie extends Content{
     private int year;
 
-    public Movie(String title, String genre, double rating, BufferedImage cover, int year) {
+    public Movie(String title, String[] genre, double rating, Image cover, int year) {
         super(title, genre, rating, cover);
         this.year = year;
     }
 
-
-    @Override
-    public int compareTo(Movie movie) {
-
-        return Double.compare(this.rating, movie.getRating());
+    public int getYear() {
+        return year;
     }
+
+
+
 }

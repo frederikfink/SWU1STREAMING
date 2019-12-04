@@ -1,29 +1,34 @@
 package controller;
 
+import model.Content;
 import model.Movie;
 import model.Show;
 import model.Show;
 
+import javafx.scene.image.Image;
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class ContentController {
     private ArrayList<Movie> movies;
-    //serie
     private ArrayList<Show> shows;
+    private ArrayList<Content> content;
 
-    public ContentController(){
-        movies = new ArrayList<>();
-        shows = new ArrayList<>();
+    public ContentController() {
+        content = new ArrayList<>();
     }
 
     public void initializeContent() throws IOException {
 
-
+        //movie scanner
         Scanner mReader = new Scanner(new File("out/movies/movies_text.txt"));
         mReader.useDelimiter(";");
 
@@ -31,52 +36,75 @@ public class ContentController {
             String        title  = mReader.next().trim();
             int           year   = Integer.parseInt(mReader.next().trim());
             String        genre  = mReader.next().trim();
+            String[] arrOfGenres = genre.split(Pattern.quote(",").trim());
             double        rating = Double.parseDouble(mReader.next().trim().replaceAll(",", "."));
-            BufferedImage cover  = ImageIO.read(new File("out/movies/" + title + ".jpg"));
+            Image          cover   = new Image(new FileInputStream("out/movies/" + title + ".jpg"));
 
-            movies.add(new Movie(title, genre, rating, cover, year));
+
+            content.add(new Movie(title, arrOfGenres, rating, cover, year));
             mReader.nextLine();
         }
         mReader.close();
-    }
 
-/*    public void initializeVideo() throws IOException {
+        //shows scanner
         Scanner sReader = new Scanner(new File("out/shows/shows_text.txt"));
         sReader.useDelimiter(";");
 
         while (sReader.hasNext()) {
             String        title   = sReader.next().trim();
             String        runtime = sReader.next().trim();
-            String        genre   = sReader.next().trim();
+            String        genre  = sReader.next().trim();
+            String[] arrOfGenres = genre.split(Pattern.quote(",").trim());
             double        rating  = Double.parseDouble(sReader.next().trim().replaceAll(",", "."));
             String        seasons = sReader.next().trim();
-            BufferedImage cover   = ImageIO.read(new File("out/shows/Angel.jpg"));
+            Image          cover   = new Image(new FileInputStream("out/shows/" + title + ".jpg"));
 
-            shows.add(new Show(title, genre, rating, cover, runtime, seasons));
+            content.add(new Show(title, arrOfGenres, rating, cover, runtime, seasons));
             sReader.nextLine();
         }
         sReader.close();
-    }*/
+    }
+
+    public ArrayList<Content> getContent() {
+        return content;
+    }
 
     public void display() {
         int i = 0;
-        for (Movie m : movies) {
-            System.out.println("film " + i + " " + m.display());
-            i++;
-        }
-        i = 0;
-        for (Show s: shows){
-            System.out.println("Serie " + i + " " + s.display());
+        for (Content c : content) {
+            if (c instanceof Movie) {
+                System.out.println("film " + i + " " + c.display());
+            } else {
+                System.out.println("Serie " + i + " " + c.display());
+            }
             i++;
         }
     }
 
-    public void searchByRating(double sort){
-        Collections.sort(movies);
-        for(Movie m: movies){
-            if(m.getRating() > sort) {
-                System.out.println(m.display());
+    public void customSort(double sort) {
+        Collections.sort(content);
+        for (Content c : content) {
+            if (c.getRating() >= sort) {
+                if (c instanceof Movie) {
+                    System.out.println("film " + c.display());
+                } else {
+                    System.out.println("Serie " + c.display());
+                }
+            }
+
+        }
+    }
+
+    public void search(String sTerm) {
+        for (Content c : content) {
+            if (c.getTitle().toLowerCase().contains(sTerm.toLowerCase())) {
+                if (c instanceof Movie) {
+                    System.out.println("film " + c.display());
+                } else {
+                    System.out.println("Serie " + c.display());
+                }
             }
         }
+
     }
 }
