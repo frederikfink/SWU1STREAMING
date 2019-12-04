@@ -5,18 +5,22 @@ import model.Movie;
 import model.Show;
 import model.Show;
 
+import javafx.scene.image.Image;
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class ContentController {
     private ArrayList<Movie> movies;
     private ArrayList<Show> shows;
-    private List<Content> content;
+    private ArrayList<Content> content;
 
     public ContentController() {
         content = new ArrayList<>();
@@ -32,10 +36,12 @@ public class ContentController {
             String        title  = mReader.next().trim();
             int           year   = Integer.parseInt(mReader.next().trim());
             String        genre  = mReader.next().trim();
+            String[] arrOfGenres = genre.split(Pattern.quote(",").trim());
             double        rating = Double.parseDouble(mReader.next().trim().replaceAll(",", "."));
             Image cover   = new Image(new FileInputStream("out/movies/" + title + ".jpg"));
 
-            content.add(new Movie(title, genre, rating, cover, year));
+
+            content.add(new Movie(title, arrOfGenres, rating, cover, year));
             mReader.nextLine();
         }
         mReader.close();
@@ -47,15 +53,23 @@ public class ContentController {
         while (sReader.hasNext()) {
             String        title   = sReader.next().trim();
             String        runtime = sReader.next().trim();
-            String        genre   = sReader.next().trim();
+            String        genre  = sReader.next().trim();
+            String[] arrOfGenres = genre.split(Pattern.quote(",").trim());
             double        rating  = Double.parseDouble(sReader.next().trim().replaceAll(",", "."));
             String        seasons = sReader.next().trim();
             Image cover   = new Image(new FileInputStream("out/shows/" + title + ".jpg"));
 
-            content.add(new Show(title, genre, rating, cover, runtime, seasons));
+
+            content.add(new Show(title, arrOfGenres, rating, cover, runtime, seasons));
             sReader.nextLine();
         }
         sReader.close();
+        //shuffles the arraylist so that it doesnt display movies and then series.
+        Collections.shuffle(content);
+    }
+
+    public ArrayList<Content> getContent() {
+        return content;
     }
 
     public void display() {
@@ -70,19 +84,20 @@ public class ContentController {
         }
     }
 
-    public void customSort(double sort) {
-        Collections.sort(content);
+    public ArrayList searchByRating(double sort) {
+        ArrayList<Content> sortArray = new ArrayList<>();
         for (Content c : content) {
 
             if (c.getRating() >= sort) {
+                sortArray.add(c);
                 if (c instanceof Movie) {
                     System.out.println("film " + c.display());
                 } else {
                     System.out.println("Serie " + c.display());
                 }
             }
-
         }
+        return sortArray;
     }
 
     public void search(String sTerm) {
@@ -95,6 +110,7 @@ public class ContentController {
                     System.out.println("Serie " + c.display());
                 }
             }
+
         }
 
     }

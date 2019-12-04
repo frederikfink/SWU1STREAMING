@@ -14,8 +14,10 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.Content;
 
+
 import java.io.FileInputStream;
 import java.io.FileReader;
+
 import java.io.IOException;
 
 public class Gui extends Application{
@@ -71,6 +73,7 @@ public class Gui extends Application{
 
         grid.getChildren().addAll(nameLabel,nameInput,passLabel,passInput,loginButton);
 
+
         BorderPane bP1 = new BorderPane();
         bP1.setStyle("-fx-background-color: DC0505;");
         bP1.setCenter(grid);
@@ -79,12 +82,17 @@ public class Gui extends Application{
         Scene logIn = new Scene(bP1, 1270, 720);
 
 
+
+
+
         ScrollPane scroll = new ScrollPane();
 
         FlowPane flow = new FlowPane();
         flow.setPadding(new Insets(5, 0, 5, 0));
+
         flow.setVgap(20);
         flow.setHgap(0);
+
         flow.setPrefWrapLength(170); // preferred width allows for two columns
         flow.setStyle("-fx-background-color: BLACK;");
         //flow.getChildren().addAll(scroll);
@@ -104,10 +112,6 @@ public class Gui extends Application{
         loginButton.setOnAction(e -> window.setScene(startScene));
 
 
-        StackPane layoutTest = new StackPane();
-
-
-
         for (Content c : test.getContent()){
             Button newButton = new Button();
             newButton.setGraphic(new ImageView(c.getCover()));
@@ -120,7 +124,9 @@ public class Gui extends Application{
                 newButton2.setOnAction(f -> window.setScene(startScene));
                 newBorderPane.setTop(newButton2);
                 newBorderPane.setCenter(new ImageView(c.getCover()));
+
                 Scene newScene = new Scene(newBorderPane,1270,720);
+
                 window.setScene(newScene);
             });
 
@@ -128,7 +134,9 @@ public class Gui extends Application{
         }
 
 
+
         window.setScene(logIn);
+
         window.show();
 
     }

@@ -12,7 +12,6 @@ public class Demo {
         ContentController test = new ContentController();
 
         test.initializeContent();
-        test.customSort(8.5);
         test.search("k");
 
 
