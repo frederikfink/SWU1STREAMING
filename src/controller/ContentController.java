@@ -115,7 +115,4 @@ public class ContentController {
 
     }
 
-    public ArrayList<Content> getContent() {
-        return (ArrayList<Content>) content;
-    }
 }

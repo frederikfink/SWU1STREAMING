@@ -43,7 +43,7 @@ public class Gui extends Application{
 
 
         window = primaryStage;
-        window.setTitle("NemtFlix");
+        window.setTitle("FAST SPEED MEGAFLIX 9000");
 
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10, 10, 10, 10));
@@ -74,12 +74,12 @@ public class Gui extends Application{
         grid.getChildren().addAll(nameLabel,nameInput,passLabel,passInput,loginButton);
 
 
-        BorderPane bP1 = new BorderPane();
-        bP1.setStyle("-fx-background-color: DC0505;");
-        bP1.setCenter(grid);
+        StackPane sP1 = new StackPane();
+        sP1.setStyle("-fx-background-color: DC0505;");
         Image logo = new Image(new FileInputStream("C:\\Users\\Oskar\\filmplakater\\netflix-800x400.png"));
-        bP1.setTop(new ImageView(logo));
-        Scene logIn = new Scene(bP1, 1270, 720);
+        sP1.getChildren().addAll((new ImageView(logo)), grid);
+
+        Scene logIn = new Scene(sP1, 1270, 720);
 
 
 
@@ -103,9 +103,21 @@ public class Gui extends Application{
 
         BorderPane bP2 = new BorderPane();
         bP2.setCenter(scroll);
+
+
+
         Button logUd = new Button("Log ud");
         logUd.setOnAction(e -> window.setScene(logIn));
-        bP2.setTop(logUd);
+
+
+        TextField searchInput = new TextField();
+        nameInput.setPromptText("Search");
+
+
+
+        HBox topMenu = new HBox();
+        topMenu.getChildren().addAll(logUd, searchInput);
+        bP2.setTop(topMenu);
 
         Scene startScene = new Scene(bP2,1270, 720);
 
@@ -124,6 +136,7 @@ public class Gui extends Application{
                 newButton2.setOnAction(f -> window.setScene(startScene));
                 newBorderPane.setTop(newButton2);
                 newBorderPane.setCenter(new ImageView(c.getCover()));
+                newBorderPane.setStyle("-fx-background-color: BLACK;");
 
                 Scene newScene = new Scene(newBorderPane,1270,720);
 
