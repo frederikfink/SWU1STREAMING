@@ -5,18 +5,22 @@ import model.Movie;
 import model.Show;
 import model.Show;
 
+import javafx.scene.image.Image;
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class ContentController {
     private ArrayList<Movie> movies;
     private ArrayList<Show> shows;
-    private List<Content> content;
+    private ArrayList<Content> content;
 
     public ContentController() {
         content = new ArrayList<>();
@@ -34,7 +38,8 @@ public class ContentController {
             String        genre  = mReader.next().trim();
             String[] arrOfGenres = genre.split(Pattern.quote(",").trim());
             double        rating = Double.parseDouble(mReader.next().trim().replaceAll(",", "."));
-            BufferedImage cover  = ImageIO.read(new File("out/movies/" + title + ".jpg"));
+            Image          cover   = new Image(new FileInputStream("out/movies/" + title + ".jpg"));
+
 
             content.add(new Movie(title, arrOfGenres, rating, cover, year));
             mReader.nextLine();
@@ -52,12 +57,16 @@ public class ContentController {
             String[] arrOfGenres = genre.split(Pattern.quote(",").trim());
             double        rating  = Double.parseDouble(sReader.next().trim().replaceAll(",", "."));
             String        seasons = sReader.next().trim();
-            BufferedImage cover   = ImageIO.read(new File("out/shows/Angel.jpg"));
+            Image          cover   = new Image(new FileInputStream("out/shows/" + title + ".jpg"));
 
             content.add(new Show(title, arrOfGenres, rating, cover, runtime, seasons));
             sReader.nextLine();
         }
         sReader.close();
+    }
+
+    public ArrayList<Content> getContent() {
+        return content;
     }
 
     public void display() {

@@ -1,7 +1,7 @@
 package model;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
+import javafx.scene.image.Image;
 import java.lang.reflect.Array;
 import java.nio.Buffer;
 import java.util.Comparator;
@@ -10,9 +10,9 @@ public class Content implements Comparable<Content> {
     protected String title;
     protected String[] genre;
     protected double rating;
-    protected BufferedImage cover;
+    protected Image cover;
 
-    public Content (String title, String[] genre, double rating, BufferedImage cover)  {
+    public Content (String title, String[] genre, double rating, Image cover)  {
         this.title = title;
         this.genre = genre;
         this.rating = rating;
@@ -27,7 +27,7 @@ public class Content implements Comparable<Content> {
         this.title = title;
     }
 
-    public void setCover(BufferedImage cover) {
+    public void setCover(Image cover) {
         this.cover = cover;
     }
 
@@ -43,7 +43,7 @@ public class Content implements Comparable<Content> {
         return genre;
     }
 
-    public BufferedImage getCover() {
+    public Image getCover() {
         return cover;
     }
 
