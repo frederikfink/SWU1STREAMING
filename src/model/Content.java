@@ -2,24 +2,21 @@ package model;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.Array;
 import java.nio.Buffer;
 import java.util.Comparator;
 
 public class Content implements Comparable<Content> {
     protected String title;
-    protected String genre;
+    protected String[] genre;
     protected double rating;
     protected BufferedImage cover;
 
-    public Content (String title, String genre, double rating, BufferedImage cover)  {
+    public Content (String title, String[] genre, double rating, BufferedImage cover)  {
         this.title = title;
         this.genre = genre;
         this.rating = rating;
         this.cover = cover;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
     }
 
     public void setRating(double rating) {
@@ -42,7 +39,7 @@ public class Content implements Comparable<Content> {
         return rating;
     }
 
-    public String getGenre() {
+    public String[] getGenre() {
         return genre;
     }
 
@@ -51,7 +48,7 @@ public class Content implements Comparable<Content> {
     }
 
     public String display() {
-        return title + " " + rating;
+        return title + " " + rating + " genre(s): " + String.join(", ", genre);
     }
 
     public int compareTo(Content c) {

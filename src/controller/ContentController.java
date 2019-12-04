@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class ContentController {
     private ArrayList<Movie> movies;
@@ -28,13 +29,14 @@ public class ContentController {
         mReader.useDelimiter(";");
 
         while (mReader.hasNext()) {
-            int           year   = Integer.parseInt(mReader.next().trim());
             String        title  = mReader.next().trim();
+            int           year   = Integer.parseInt(mReader.next().trim());
             String        genre  = mReader.next().trim();
+            String[] arrOfGenres = genre.split(Pattern.quote(",").trim());
             double        rating = Double.parseDouble(mReader.next().trim().replaceAll(",", "."));
             BufferedImage cover  = ImageIO.read(new File("out/movies/" + title + ".jpg"));
 
-            content.add(new Movie(title, genre, rating, cover, year));
+            content.add(new Movie(title, arrOfGenres, rating, cover, year));
             mReader.nextLine();
         }
         mReader.close();
@@ -46,12 +48,13 @@ public class ContentController {
         while (sReader.hasNext()) {
             String        title   = sReader.next().trim();
             String        runtime = sReader.next().trim();
-            String        genre   = sReader.next().trim();
+            String        genre  = sReader.next().trim();
+            String[] arrOfGenres = genre.split(Pattern.quote(",").trim());
             double        rating  = Double.parseDouble(sReader.next().trim().replaceAll(",", "."));
             String        seasons = sReader.next().trim();
             BufferedImage cover   = ImageIO.read(new File("out/shows/Angel.jpg"));
 
-            content.add(new Show(title, genre, rating, cover, runtime, seasons));
+            content.add(new Show(title, arrOfGenres, rating, cover, runtime, seasons));
             sReader.nextLine();
         }
         sReader.close();
