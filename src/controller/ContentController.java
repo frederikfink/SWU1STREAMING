@@ -1,5 +1,5 @@
 package controller;
-
+import javafx.scene.image.Image;
 import model.Content;
 import model.Movie;
 import model.Show;
@@ -8,6 +8,7 @@ import model.Show;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
@@ -32,7 +33,7 @@ public class ContentController {
             int           year   = Integer.parseInt(mReader.next().trim());
             String        genre  = mReader.next().trim();
             double        rating = Double.parseDouble(mReader.next().trim().replaceAll(",", "."));
-            BufferedImage cover  = ImageIO.read(new File("out/movies/" + title + ".jpg"));
+            Image cover   = new Image(new FileInputStream("out/movies/" + title + ".jpg"));
 
             content.add(new Movie(title, genre, rating, cover, year));
             mReader.nextLine();
@@ -49,7 +50,7 @@ public class ContentController {
             String        genre   = sReader.next().trim();
             double        rating  = Double.parseDouble(sReader.next().trim().replaceAll(",", "."));
             String        seasons = sReader.next().trim();
-            BufferedImage cover   = ImageIO.read(new File("out/shows/Angel.jpg"));
+            Image cover   = new Image(new FileInputStream("out/shows/" + title + ".jpg"));
 
             content.add(new Show(title, genre, rating, cover, runtime, seasons));
             sReader.nextLine();
@@ -96,5 +97,9 @@ public class ContentController {
             }
         }
 
+    }
+
+    public ArrayList<Content> getContent() {
+        return (ArrayList<Content>) content;
     }
 }
