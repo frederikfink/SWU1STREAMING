@@ -101,10 +101,11 @@ public class ContentController {
         return sortArray;
     }
 
-    public void search(String sTerm) {
+    public ArrayList searchByTitle(String sTerm) {
+        ArrayList<Content> sortArray = new ArrayList<>();
         for (Content c : content) {
-
             if (c.getTitle().toLowerCase().contains(sTerm.toLowerCase())) {
+                sortArray.add(c);
                 if (c instanceof Movie) {
                     System.out.println("film " + c.display());
                 } else {
@@ -113,10 +114,8 @@ public class ContentController {
             }
 
         }
+        return sortArray;
 
     }
 
-    public ArrayList<Content> getContent() {
-        return (ArrayList<Content>) content;
-    }
 }

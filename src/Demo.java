@@ -1,3 +1,4 @@
+/*
 import controller.ContentController;
 
 import javax.swing.*;
@@ -12,10 +13,11 @@ public class Demo {
         ContentController test = new ContentController();
 
         test.initializeContent();
-        test.search("k");
 
 
 
-        /*StreamingViewver viewTest = new StreamingViewver();*/
+        */
+/*StreamingViewver viewTest = new StreamingViewver();*//*
+
     }
-}
+}*/

@@ -74,8 +74,12 @@ public class Gui extends Application{
         BorderPane bP1 = new BorderPane();
         bP1.setStyle("-fx-background-color: DC0505;");
         bP1.setCenter(grid);
+/*
         Image logo = new Image(new FileInputStream("C:\\Users\\Oskar\\filmplakater\\netflix-800x400.png"));
+*/
+/*
         bP1.setTop(new ImageView(logo));
+*/
         Scene logIn = new Scene(bP1, 1270, 720);
 
 
@@ -97,7 +101,6 @@ public class Gui extends Application{
         scroll.fitToWidthProperty().set(true);
 
 
-        Scene startScene = new Scene(scroll,1300, 720);
 
         BorderPane bP2 = new BorderPane();
         bP2.setCenter(scroll);
