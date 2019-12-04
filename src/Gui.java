@@ -13,10 +13,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.Content;
+
+
+import javax.naming.ContextNotEmptyException;
 import java.io.FileInputStream;
 import java.io.FileReader;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Gui extends Application{
 
@@ -41,7 +46,7 @@ public class Gui extends Application{
 
 
         window = primaryStage;
-        window.setTitle("NemtFlix");
+        window.setTitle("FAST SPEED MEGAFLIX 9000");
 
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10, 10, 10, 10));
@@ -71,18 +76,13 @@ public class Gui extends Application{
 
         grid.getChildren().addAll(nameLabel,nameInput,passLabel,passInput,loginButton);
 
-        BorderPane bP1 = new BorderPane();
-        bP1.setStyle("-fx-background-color: DC0505;");
-        bP1.setCenter(grid);
-/*
+
+        StackPane sP1 = new StackPane();
+        sP1.setStyle("-fx-background-color: DC0505;");
         Image logo = new Image(new FileInputStream("C:\\Users\\Oskar\\filmplakater\\netflix-800x400.png"));
-*/
-/*
-        bP1.setTop(new ImageView(logo));
-*/
-        Scene logIn = new Scene(bP1, 1270, 720);
+        sP1.getChildren().addAll((new ImageView(logo)), grid);
 
-
+        Scene logIn = new Scene(sP1, 1270, 720);
 
         ScrollPane scroll = new ScrollPane();
 
@@ -100,22 +100,53 @@ public class Gui extends Application{
         scroll.fitToHeightProperty().set(true);
         scroll.fitToWidthProperty().set(true);
 
-
-
         BorderPane bP2 = new BorderPane();
         bP2.setCenter(scroll);
+
+
+
         Button logUd = new Button("Log ud");
         logUd.setOnAction(e -> window.setScene(logIn));
-        bP2.setTop(logUd);
+
+
+        TextField searchInput = new TextField();
+        nameInput.setPromptText("Search");
+
+        Button search = new Button();
+
+
+
+        Image searchImage = new Image(new FileInputStream("C:\\Users\\Oskar\\filmplakater\\white search.png"));
+        ImageView newImageView = new ImageView(searchImage);
+        newImageView.setFitHeight(20);
+        newImageView.setFitWidth(20);
+        search.setGraphic(newImageView);
+        search.setStyle(" -fx-background-color: transparent");
+
+
+
+        HBox topMenu = new HBox();
+        topMenu.setStyle("-fx-background-color: BLACK;");
+        topMenu.getChildren().addAll(logUd, searchInput, search);
+        bP2.setTop(topMenu);
 
         Scene startScene = new Scene(bP2,1270, 720);
-
         loginButton.setOnAction(e -> window.setScene(startScene));
+        search.setOnAction(e -> {
+            ArrayList<Content> searchArrayList = test.searchByTitle(searchInput.getText());
+            refreshContentList(searchArrayList, startScene, flow);
+        });
 
 
+        refreshContentList(test.getContent(), startScene, flow);
 
+        window.setScene(logIn);
+        window.show();
+    }
 
-        for (Content c : test.getContent()){
+    private void refreshContentList(List<Content> contents, Scene scene, FlowPane list) {
+        list.getChildren().clear();
+        for (Content c : contents){
             Button newButton = new Button();
             newButton.setGraphic(new ImageView(c.getCover()));
             newButton.setStyle(" -fx-background-color: transparent");
@@ -124,24 +155,17 @@ public class Gui extends Application{
                 Button newButton2 = new Button("Tryk her for at gå tilbage");
                 newButton2.setStyle(" -fx-background-color: transparent");
                 //newButton.setGraphic(new ImageView(c.getCover()));
-                newButton2.setOnAction(f -> window.setScene(startScene));
+                newButton2.setOnAction(f -> window.setScene(scene));
                 newBorderPane.setTop(newButton2);
                 newBorderPane.setCenter(new ImageView(c.getCover()));
+                newBorderPane.setStyle("-fx-background-color: BLACK;");
 
                 Scene newScene = new Scene(newBorderPane,1270,720);
 
                 window.setScene(newScene);
             });
 
-            flow.getChildren().addAll(newButton);
+            list.getChildren().addAll(newButton);
         }
-
-
-        window.setScene(startScene);
-
-        window.setScene(logIn);
-
-        window.show();
-
     }
 }
