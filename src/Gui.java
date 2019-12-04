@@ -13,6 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.Content;
+import java.io.FileInputStream;
+import java.io.FileReader;
 
 import java.io.IOException;
 
@@ -69,6 +71,16 @@ public class Gui extends Application{
 
         grid.getChildren().addAll(nameLabel,nameInput,passLabel,passInput,loginButton);
 
+        BorderPane bP1 = new BorderPane();
+        bP1.setStyle("-fx-background-color: DC0505;");
+        bP1.setCenter(grid);
+/*
+        Image logo = new Image(new FileInputStream("C:\\Users\\Oskar\\filmplakater\\netflix-800x400.png"));
+*/
+/*
+        bP1.setTop(new ImageView(logo));
+*/
+        Scene logIn = new Scene(bP1, 1270, 720);
 
 
 
@@ -76,8 +88,10 @@ public class Gui extends Application{
 
         FlowPane flow = new FlowPane();
         flow.setPadding(new Insets(5, 0, 5, 0));
-        flow.setVgap(4);
-        flow.setHgap(4);
+
+        flow.setVgap(20);
+        flow.setHgap(0);
+
         flow.setPrefWrapLength(170); // preferred width allows for two columns
         flow.setStyle("-fx-background-color: BLACK;");
         //flow.getChildren().addAll(scroll);
@@ -86,9 +100,18 @@ public class Gui extends Application{
         scroll.fitToHeightProperty().set(true);
         scroll.fitToWidthProperty().set(true);
 
-        Scene startScene = new Scene(scroll,1300, 720);
 
-        StackPane layoutTest = new StackPane();
+
+        BorderPane bP2 = new BorderPane();
+        bP2.setCenter(scroll);
+        Button logUd = new Button("Log ud");
+        logUd.setOnAction(e -> window.setScene(logIn));
+        bP2.setTop(logUd);
+
+        Scene startScene = new Scene(bP2,1270, 720);
+
+        loginButton.setOnAction(e -> window.setScene(startScene));
+
 
 
 
@@ -104,7 +127,9 @@ public class Gui extends Application{
                 newButton2.setOnAction(f -> window.setScene(startScene));
                 newBorderPane.setTop(newButton2);
                 newBorderPane.setCenter(new ImageView(c.getCover()));
-                Scene newScene = new Scene(newBorderPane,400,400);
+
+                Scene newScene = new Scene(newBorderPane,1270,720);
+
                 window.setScene(newScene);
             });
 
@@ -113,6 +138,9 @@ public class Gui extends Application{
 
 
         window.setScene(startScene);
+
+        window.setScene(logIn);
+
         window.show();
 
     }
